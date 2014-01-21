@@ -1,7 +1,8 @@
 /*
  * This should act as the main menu for the counter app. Basically be a title screen with a button
  * to go see the list of counters.
- * TODO: Add the button, add the ability to go to the list of counters.
+ * TODO: Add the function to make the button transfer to the button display activity. Maybe sparkle things
+ * up a bit if I have time.
  */
 
 
