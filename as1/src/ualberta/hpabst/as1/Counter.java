@@ -15,6 +15,32 @@ public class Counter {
 	public List<Date> countTimes; //A List of Dates at the time when the count was incremented.
 	//Is this right? fucking java.
 	
+	
+	
+	public String getCounterName() {
+		return counterName;
+	}
+
+	public void setCounterName(String counterName) {
+		this.counterName = counterName;
+	}
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+
+	public List<Date> getCountTimes() {
+		return countTimes;
+	}
+
+	public void setCountTimes(List<Date> countTimes) {
+		this.countTimes = countTimes;
+	}
+
 	public Counter(String newName){
 		this.counterName = newName;
 		this.count = 0;
@@ -27,6 +53,15 @@ public class Counter {
 		 */
 		this.count += 1;
 		countTimes.add(new Date());
+	}
+	
+	public void reset(){
+		this.count = 0;
+		countTimes.clear();
+	}
+	
+	public void rename(String newName){
+		this.counterName = newName;
 	}
 
 }
