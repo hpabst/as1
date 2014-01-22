@@ -6,5 +6,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="titleText">Counters</string>
     <string name="toCountersButton">To Counters</string>
+    <string name="buttonView">View</string>
+    <string name="buttonRemove">Remove</string>
+    <string name="defaultName">DefaultName</string>
+    <string name="defaultCount">0</string>
 
 </resources>

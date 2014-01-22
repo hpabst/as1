@@ -9,8 +9,14 @@
 package ualberta.hpabst.as1;
 
 import android.app.Activity;
+import android.os.Bundle;
 
 
 public class CounterListDisplay extends Activity {
+	public void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+		this.setContentView(R.layout.counter_list_layout);
+	}
+	
 
 }

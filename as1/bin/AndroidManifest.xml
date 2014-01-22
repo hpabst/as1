@@ -22,6 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="ualberta.hpabst.as1.CounterListDisplay"
+            android:label="Counter List Display" >
+            
+        </activity>
     </application>
 
 </manifest>
