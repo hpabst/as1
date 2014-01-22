@@ -8,6 +8,8 @@
 
 package ualberta.hpabst.as1;
 
+import java.util.List;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -15,6 +17,8 @@ import android.view.Menu;
 import android.view.View;
 
 public class MainActivity extends Activity {
+	
+	public List<Counter> masterCounterList;//Master list that hold the counters to be displayed.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
