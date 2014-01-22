@@ -16,7 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 
-public class CounterListDisplay extends Activity {
+public class CounterListActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.counter_list_layout);

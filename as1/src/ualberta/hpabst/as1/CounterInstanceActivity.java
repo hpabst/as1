@@ -9,6 +9,6 @@ package ualberta.hpabst.as1;
 import android.app.Activity;
 
 
-public class CounterDisplay extends Activity {
+public class CounterInstanceActivity extends Activity {
 
 }
