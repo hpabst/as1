@@ -1,7 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    
 
-</ListView>
+    <Button
+        android:id="@+id/buttonReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/buttonReset" />
+
+    <Button
+        android:id="@+id/buttonRename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/buttonRename" />
+
+    <Button
+        android:id="@+id/buttonStats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/buttonStats" />
+
+    <Button
+        android:id="@+id/buttonPlusOne"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonStats"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="83dp"
+        android:text="@string/buttonPlusOne" />
+
+    <TextView
+        android:id="@+id/textCounterName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonPlusOne"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="93dp"
+        android:text="@string/defaultName"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textCounterName"
+        android:layout_alignLeft="@+id/textCounterName"
+        android:layout_marginTop="42dp"
+        android:text="@string/defaultCount"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>

@@ -10,5 +10,9 @@
     <string name="buttonRemove">Remove</string>
     <string name="defaultName">DefaultName</string>
     <string name="defaultCount">0</string>
+    <string name="buttonRename">Rename</string>
+    <string name="buttonReset">Reset</string>
+    <string name="buttonPlusOne">+1</string>
+    <string name="buttonStats">Statistics</string>
 
 </resources>
