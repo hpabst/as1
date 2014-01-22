@@ -14,5 +14,7 @@
     <string name="buttonReset">Reset</string>
     <string name="buttonPlusOne">+1</string>
     <string name="buttonStats">Statistics</string>
+    <string name="menu_newCounter">Add New Counter</string>
+    <string name="menu_sortCounters">Sort Counters</string>
 
 </resources>
