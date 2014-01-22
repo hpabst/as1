@@ -5,16 +5,15 @@
 
 package ualberta.hpabst.as1;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class Counter {
 	
-	public String counterName; //The name itself of the counter.
-	public Integer count; //Current count of the counter.
-	public List<Date> countTimes; //A List of Dates at the time when the count was incremented.
-	//Is this right? fucking java.
-	
+	public String counterName;
+	public Integer count;
+	public List<GregorianCalendar> countTimes = new ArrayList<GregorianCalendar>();
 	
 	
 	public String getCounterName() {
@@ -33,11 +32,11 @@ public class Counter {
 		this.count = count;
 	}
 
-	public List<Date> getCountTimes() {
+	public List<GregorianCalendar> getCountTimes() {
 		return countTimes;
 	}
 
-	public void setCountTimes(List<Date> countTimes) {
+	public void setCountTimes(List<GregorianCalendar> countTimes) {
 		this.countTimes = countTimes;
 	}
 
@@ -52,7 +51,7 @@ public class Counter {
 		 * Increments the count, and adds the time/date it was incremented to countTimes.
 		 */
 		this.count += 1;
-		countTimes.add(new Date());
+		countTimes.add(new GregorianCalendar());
 	}
 	
 	public void reset(){

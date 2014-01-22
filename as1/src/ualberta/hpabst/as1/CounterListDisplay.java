@@ -6,6 +6,8 @@
  * TODO: Basically everything on this screen. Created it for the sake of having it here.
  */
 
+package ualberta.hpabst.as1;
+
 import android.app.Activity;
 
 

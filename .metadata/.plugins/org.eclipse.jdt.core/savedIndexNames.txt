@@ -1,5 +1,2 @@
-INDEX VERSION 1.126+/cshome/hpabst/CMPUT301/Asns/.metadata/.plugins/org.eclipse.jdt.core
-1693598571.index
+INDEX VERSION 1.126+/home/henrypabst/AndroidDev/Asns/as1/.metadata/.plugins/org.eclipse.jdt.core
 3318541164.index
-2650385576.index
-3658430816.index

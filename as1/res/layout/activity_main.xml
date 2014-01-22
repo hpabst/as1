@@ -25,7 +25,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="136dp"
-        android:text="@string/toCountersButton">
+        android:text="@string/toCountersButton"
+        android:onClick="toCountersDisplay">
         
     </Button>
 
