@@ -10,6 +10,7 @@ package ualberta.hpabst.as1;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -49,6 +50,8 @@ public class CounterListDisplay extends Activity {
 		 * the new counter, create it, and append it to the end of
 		 * the master list of counters.
 		 */
+		Log.i("Add new counter button:", "I have been pressed.");
+		
 	}
 	
 	public void sortCounters(MenuItem item){
@@ -57,6 +60,7 @@ public class CounterListDisplay extends Activity {
 		 * master list of counters according to their count, then redisplay them
 		 * in the activity.
 		 */
+		Log.i("Sort counters button:", "I have been pressed.");
 	}
 	
 
