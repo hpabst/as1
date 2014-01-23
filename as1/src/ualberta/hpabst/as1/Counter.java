@@ -47,6 +47,16 @@ public class Counter {
 		this.countTimes = new ArrayList<GregorianCalendar>();
 	}
 	
+	public Counter(){
+		/*
+		 * If no name is passed on object creation, the default name
+		 * of the counter is 'Default'.
+		 */
+		this.counterName = "Default";
+		this.count = 0;
+		this.countTimes = new ArrayList<GregorianCalendar>();
+	}
+	
 	public void increment(){
 		/*
 		 * Increments the count, and adds the time/date it was incremented to countTimes.
@@ -56,11 +66,19 @@ public class Counter {
 	}
 	
 	public void reset(){
+		/*
+		 * Resets the count of the counter back to 0 and clears
+		 * the list containing times/dates of when the count was incremented.
+		 */
 		this.count = 0;
 		countTimes.clear();
 	}
 	
+	@Deprecated
 	public void rename(String newName){
+		/*
+		 * Deprecated, rendered redundant by default setCounterName method.
+		 */
 		this.counterName = newName;
 	}
 
