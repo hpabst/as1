@@ -1,6 +1,7 @@
 /*
  * This class acts as an individual counter for the app. Contains the name of the counter,
  * its current count, and the date/times at which a count was added.
+ * TODO: Add support for the calculation and output of statistics.
  */
 
 package ualberta.hpabst.as1;
@@ -13,7 +14,7 @@ public class Counter {
 	
 	public String counterName;
 	public Integer count;
-	public List<GregorianCalendar> countTimes = new ArrayList<GregorianCalendar>();
+	public List<GregorianCalendar> countTimes;
 	
 	
 	public String getCounterName() {
@@ -43,7 +44,7 @@ public class Counter {
 	public Counter(String newName){
 		this.counterName = newName;
 		this.count = 0;
-		countTimes.clear(); //Not really necessary, but may as well be safe.
+		this.countTimes = new ArrayList<GregorianCalendar>();
 	}
 	
 	public void increment(){
