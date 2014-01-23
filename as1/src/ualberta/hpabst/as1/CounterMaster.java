@@ -17,6 +17,20 @@ public class CounterMaster {
 		allCounters = new ArrayList<Counter>();
 	}
 	
+	public void sortCounterList(){
+		/*
+		 * Still need to do the implementation of this.
+		 */	
+	}
+	
+	public void addCounter(Counter newCounter){
+		allCounters.add(newCounter);
+	}
+	
+	public void clearCounterList(){
+		allCounters.clear();
+	}
+	
 	
 
 }
