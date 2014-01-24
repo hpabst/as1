@@ -27,6 +27,12 @@
             android:label="Counter List Display" >
             
         </activity>
+        
+        <activity 
+            android:name="ualberta.hpabst.as1.CounterInstanceActivity"
+            android:label="Counter Display">
+            
+        </activity>
     </application>
 
 </manifest>

@@ -18,8 +18,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.view.View;
 
 
 public class CounterListActivity extends Activity {
@@ -48,6 +51,54 @@ public class CounterListActivity extends Activity {
 											counterMaster.allCounters);
 		
 		lstTest.setAdapter(arrayAdapter);
+		
+		lstTest.setOnItemClickListener(new OnItemClickListener(){
+			/*
+			 * When one of the counters is clicked, we want to 
+			 * 
+			 */
+			
+			@Override
+			public void onItemClick(AdapterView<?> parent, View clickView, int position, long id){
+				Counter clickedCounter = (Counter) arrayAdapter.getItem(position);
+				Intent counterInstance = new Intent(ualberta.hpabst.as1.CounterListActivity.this,
+													CounterInstanceActivity.class);
+				counterInstance.putExtra("clickedCounter", clickedCounter);
+				startActivity(counterInstance);
+			}
+		});
+	}
+	
+	public void onResume(){
+		super.onResume();
+		
+		Intent i = getIntent();
+		counterMaster = (CounterMaster)i.getSerializableExtra("counterMaster");
+		
+		//Initialize ListView
+		lstTest = (ListView) findViewById(R.id.counterListView);
+		
+		//Initialize our array adapter notice how it references the counter_list_instance_layout.xml layout
+		arrayAdapter = new CounterAdapter(this, R.layout.counter_list_instance_layout,
+											counterMaster.allCounters);
+		
+		lstTest.setAdapter(arrayAdapter);
+		
+		lstTest.setOnItemClickListener(new OnItemClickListener(){
+			/*
+			 * When one of the counters is clicked, we want to 
+			 * 
+			 */
+			
+			@Override
+			public void onItemClick(AdapterView<?> parent, View clickView, int position, long id){
+				Counter clickedCounter = (Counter) arrayAdapter.getItem(position);
+				Intent counterInstance = new Intent(ualberta.hpabst.as1.CounterListActivity.this,
+													CounterInstanceActivity.class);
+				counterInstance.putExtra("clickedCounter", clickedCounter);
+				startActivity(counterInstance);
+			}
+		});
 	}
 	
 	public boolean onCreateOptionsMenu(Menu menu){
@@ -75,9 +126,8 @@ public class CounterListActivity extends Activity {
 	public void createNewCounter(MenuItem item){
 		/*
 		 * Prompts the user for the entry of the name of the new counter.
-		 */
-		Log.i("Add new counter button:", "I have been pressed.");
-		/*
+		 *
+		 *
 		 * This segment of code was taken from
 		 * www.androidsnippets.com/prompt-user-input-with-an-alertdialog
 		 */
