@@ -73,27 +73,27 @@ public class CounterListActivity extends Activity {
 	
 	public void createNewCounter(MenuItem item){
 		/*
-		 * Still need to implement. Should prompt the user for the name of
-		 * the new counter, create it, and append it to the end of
-		 * the master list of counters. Or just add a default counter, uglier but easier,
-		 * user can change name later.
+		 * Prompts the user for the entry of the name of the new counter.
 		 */
 		Log.i("Add new counter button:", "I have been pressed.");
 		/*
 		 * This segment of code was taken from
 		 * www.androidsnippets.com/prompt-user-input-with-an-alertdialog
 		 */
-		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		final AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		alert.setTitle("Name Entry");
-		alert.setMessage("Please enter a name for the new counter:");
+		alert.setMessage("Please enter a name for the new counter, names must be less than 15 characters.");
 		final EditText input = new EditText(this);
 		alert.setView(input);
 		
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
 			public void onClick(DialogInterface dialog, int whichButton){
 				String value = input.getText().toString();
+				if(value.length() > 14){
+					value = value.substring(0,15);
+				}
 				counterMaster.addCounter(new Counter(value));
-			}
+		}
 		});
 		
 		alert.setNegativeButton("Cancel",  new DialogInterface.OnClickListener(){
