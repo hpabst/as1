@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="ualberta.hpabst.as1.CounterListDisplay"
+            android:name="ualberta.hpabst.as1.CounterListActivity"
             android:label="Counter List Display" >
             
         </activity>

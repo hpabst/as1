@@ -9,17 +9,41 @@
 package ualberta.hpabst.as1;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 
 public class CounterListActivity extends Activity {
+	/*
+	 * A large amount of code for this class was adapted from
+	 * www.josecgomez.com/2010/05/03/android-putting-custom-objects-in-listview/
+	 * 
+	 */
+	
+	ListView lstTest;
+	CounterAdapter arrayAdapter;
+	CounterMaster counterMaster;
+	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.counter_list_layout);
+		
+		Intent i = getIntent();
+		counterMaster = (CounterMaster)i.getSerializableExtra("counterMaster");
+		
+		//Initialize ListView
+		lstTest = (ListView) findViewById(R.id.counterListView);
+		
+		//Initialize our array adapter notice how it references the counter_list_instance_layout.xml layout
+		arrayAdapter = new CounterAdapter(this, R.layout.counter_list_instance_layout,
+											counterMaster.allCounters);
+		
+		lstTest.setAdapter(arrayAdapter);
 	}
 	
 	public boolean onCreateOptionsMenu(Menu menu){

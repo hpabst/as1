@@ -7,10 +7,12 @@
 
 package ualberta.hpabst.as1;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CounterMaster {
+@SuppressWarnings("serial")
+public class CounterMaster implements Serializable {
 	
 	public List<Counter> allCounters;
 	

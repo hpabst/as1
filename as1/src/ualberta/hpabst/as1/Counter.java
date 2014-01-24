@@ -6,15 +6,33 @@
 
 package ualberta.hpabst.as1;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-public class Counter {
+@SuppressWarnings("serial")
+public class Counter implements Serializable {
 	
 	public String counterName;
 	public Integer count;
 	public List<GregorianCalendar> countTimes;
+	
+	public Counter(){
+		/*
+		 * If no name is passed on object creation, the default name
+		 * of the counter is 'Default'.
+		 */
+		this.counterName = "Default";
+		this.count = 0;
+		this.countTimes = new ArrayList<GregorianCalendar>();
+	}
+	
+	public Counter(String newName){
+		this.counterName = newName;
+		this.count = 0;
+		this.countTimes = new ArrayList<GregorianCalendar>();
+	}
 	
 	
 	public String getCounterName() {
@@ -39,22 +57,6 @@ public class Counter {
 
 	public void setCountTimes(List<GregorianCalendar> countTimes) {
 		this.countTimes = countTimes;
-	}
-
-	public Counter(String newName){
-		this.counterName = newName;
-		this.count = 0;
-		this.countTimes = new ArrayList<GregorianCalendar>();
-	}
-	
-	public Counter(){
-		/*
-		 * If no name is passed on object creation, the default name
-		 * of the counter is 'Default'.
-		 */
-		this.counterName = "Default";
-		this.count = 0;
-		this.countTimes = new ArrayList<GregorianCalendar>();
 	}
 	
 	public void increment(){

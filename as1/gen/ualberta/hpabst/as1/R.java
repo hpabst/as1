@@ -24,7 +24,7 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f08000e;
+        public static final int action_settings=0x7f08000f;
         public static final int buttonPlusOne=0x7f080005;
         public static final int buttonRename=0x7f080003;
         public static final int buttonReset=0x7f080002;
@@ -34,8 +34,9 @@ public final class R {
         public static final int counterInstName=0x7f080008;
         public static final int counterInstRemove=0x7f08000a;
         public static final int counterInstView=0x7f08000b;
-        public static final int newCounter=0x7f08000c;
-        public static final int sortCounters=0x7f08000d;
+        public static final int counterListView=0x7f08000c;
+        public static final int newCounter=0x7f08000d;
+        public static final int sortCounters=0x7f08000e;
         public static final int textCount=0x7f080007;
         public static final int textCounterName=0x7f080006;
         public static final int textView_titleText=0x7f080000;
@@ -43,7 +44,8 @@ public final class R {
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int counter_layout=0x7f030001;
-        public static final int counter_list_layout=0x7f030002;
+        public static final int counter_list_instance_layout=0x7f030002;
+        public static final int counter_list_layout=0x7f030003;
     }
     public static final class menu {
         public static final int counter_list_menu=0x7f070000;
