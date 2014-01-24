@@ -11,6 +11,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:text="@string/defaultName"
+        android:ellipsize="middle"
+        android:singleLine="true"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView

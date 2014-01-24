@@ -9,12 +9,15 @@
 package ualberta.hpabst.as1;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ListView;
 
 
@@ -72,9 +75,34 @@ public class CounterListActivity extends Activity {
 		/*
 		 * Still need to implement. Should prompt the user for the name of
 		 * the new counter, create it, and append it to the end of
-		 * the master list of counters.
+		 * the master list of counters. Or just add a default counter, uglier but easier,
+		 * user can change name later.
 		 */
 		Log.i("Add new counter button:", "I have been pressed.");
+		/*
+		 * This segment of code was taken from
+		 * www.androidsnippets.com/prompt-user-input-with-an-alertdialog
+		 */
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setTitle("Name Entry");
+		alert.setMessage("Please enter a name for the new counter:");
+		final EditText input = new EditText(this);
+		alert.setView(input);
+		
+		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
+			public void onClick(DialogInterface dialog, int whichButton){
+				String value = input.getText().toString();
+				counterMaster.addCounter(new Counter(value));
+			}
+		});
+		
+		alert.setNegativeButton("Cancel",  new DialogInterface.OnClickListener(){
+			public void onClick(DialogInterface dialog, int whichButton){
+				
+			}
+		});
+		
+		alert.show();
 		
 	}
 	
