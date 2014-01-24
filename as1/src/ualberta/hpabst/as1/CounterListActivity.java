@@ -3,7 +3,8 @@
  * individual counters. Should as well have a button that will sort the counters based on their count and one
  * that allows the generation of a new counter.
  * Corresponding XML layout file is counter_list_layout.xml.
- * TODO: Basically everything on this screen. Created it for the sake of having it here.
+ * TODO: Saving of the masterCounter when a new Counter is added or removed. Removing of counters.
+ * 		Moving from this activity into viewing details of a specific counter.
  */
 
 package ualberta.hpabst.as1;
