@@ -39,34 +39,6 @@ public class CounterListActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.counter_list_layout);
-		
-		Intent i = getIntent();
-		counterMaster = (CounterMaster)i.getSerializableExtra("counterMaster");
-		
-		//Initialize ListView
-		lstTest = (ListView) findViewById(R.id.counterListView);
-		
-		//Initialize our array adapter notice how it references the counter_list_instance_layout.xml layout
-		arrayAdapter = new CounterAdapter(this, R.layout.counter_list_instance_layout,
-											counterMaster.allCounters);
-		
-		lstTest.setAdapter(arrayAdapter);
-		
-		lstTest.setOnItemClickListener(new OnItemClickListener(){
-			/*
-			 * When one of the counters is clicked, we want to 
-			 * 
-			 */
-			
-			@Override
-			public void onItemClick(AdapterView<?> parent, View clickView, int position, long id){
-				Counter clickedCounter = (Counter) arrayAdapter.getItem(position);
-				Intent counterInstance = new Intent(ualberta.hpabst.as1.CounterListActivity.this,
-													CounterInstanceActivity.class);
-				counterInstance.putExtra("clickedCounter", clickedCounter);
-				startActivity(counterInstance);
-			}
-		});
 	}
 	
 	public void onResume(){
@@ -86,7 +58,8 @@ public class CounterListActivity extends Activity {
 		
 		lstTest.setOnItemClickListener(new OnItemClickListener(){
 			/*
-			 * When one of the counters is clicked, we want to 
+			 * When one of the counters is clicked, we want to go to a new activity
+			 * where we can view and increment it.
 			 * 
 			 */
 			
@@ -164,6 +137,7 @@ public class CounterListActivity extends Activity {
 		 * in the activity.
 		 */
 		Log.i("Sort counters button:", "I have been pressed.");
+		arrayAdapter.notifyDataSetChanged();
 	}
 	
 

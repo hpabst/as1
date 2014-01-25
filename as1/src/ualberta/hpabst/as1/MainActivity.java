@@ -23,8 +23,14 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        counterMaster = new CounterMaster();
-        testingSetup();//Should be removed after testing.
+    }
+    
+    public void onResume(){
+    	super.onResume();
+    	if(counterMaster == null){
+    		counterMaster = new CounterMaster();
+            testingSetup();//Should be removed after testing.
+    	}
     }
 
 
