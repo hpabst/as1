@@ -51,7 +51,21 @@ public class CounterInstanceActivity extends Activity {
 		 * Still need to fill out, should prompt the user for confirmation
 		 * and reset the counter back to 0. SAVE AFTER.
 		 */
+		clickedCounter.reset();
+		counterCountDisplay.setText(clickedCounter.getCount().toString());
 
+	}
+	
+	public void removeCounter(View view){
+		/*
+		 * SAVE AFTER
+		 * This is broken atm due to passing of CounterMaster and counters by value
+		 * rather than reference.
+		 */
+		boolean test;
+		test = counterMaster.getAllCounters().remove(clickedCounter);
+		Log.i("removeCounter",String.format("Result of removceCounter was %s.", String.valueOf(test)));
+		finish();
 	}
 	
 	public void renameCounter(View view){
@@ -65,12 +79,12 @@ public class CounterInstanceActivity extends Activity {
 		 * www.androidsnippets.com/prompt-user-input-with-an-alertdialog
 		 */
 		Log.i("renameCounter","I have been pressed.");
-		AlertDialog.Builder resetAlert = new AlertDialog.Builder(this);
-		resetAlert.setTitle("New Name Entry");
-		resetAlert.setMessage("Please enter a new name for the current counter, names must be less than 15 characters long:");
+		AlertDialog.Builder renameAlert = new AlertDialog.Builder(this);
+		renameAlert.setTitle("New Name Entry");
+		renameAlert.setMessage("Please enter a new name for the current counter, names must be less than 15 characters long:");
 		final EditText input = new EditText(this);
-		resetAlert.setView(input);
-		resetAlert.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
+		renameAlert.setView(input);
+		renameAlert.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
 			public void onClick(DialogInterface dialog, int button){
 				String value = input.getText().toString();
 				if(value.length() > 14){
@@ -81,7 +95,7 @@ public class CounterInstanceActivity extends Activity {
 			}
 		});
 		
-		resetAlert.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+		renameAlert.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
 			public void onClick(DialogInterface dialog, int whichButton){
 				/*
 				 * We do nothing here since we're just leaving the current counter
@@ -89,7 +103,7 @@ public class CounterInstanceActivity extends Activity {
 				 */
 			}
 		});
-		resetAlert.show();
+		renameAlert.show();
 	}
 	
 	public void incrementCounter(View view){
@@ -98,6 +112,8 @@ public class CounterInstanceActivity extends Activity {
 		 * the count.
 		 * SAVE AFTER.
 		 */
+		clickedCounter.increment();
+		counterCountDisplay.setText(clickedCounter.getCount().toString());
 	}
 
 }

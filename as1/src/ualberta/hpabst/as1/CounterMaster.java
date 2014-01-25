@@ -34,6 +34,10 @@ public class CounterMaster implements Serializable {
 		allCounters.clear();
 	}
 	
+	public List<Counter> getAllCounters(){
+		return this.allCounters;
+	}
+	
 	
 
 }

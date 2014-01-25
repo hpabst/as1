@@ -61,4 +61,13 @@
         android:text="@string/defaultCount"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <Button
+        android:id="@+id/buttonRemove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/textCounterName"
+        android:text="@string/buttonRemove"
+        android:onClick="removeCounter" />
+
 </RelativeLayout>
