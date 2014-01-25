@@ -111,7 +111,38 @@ public class Counter implements Serializable {
 		return returnList;
 	}
 	
-	
+	public List<String> getWeekStats(){
+	/*
+	 * Returns a list of strings of the form :"Week of XXX YY -- Z"
+	 * where XXX is the month the week occurred, YY is the day of
+	 * the start of that week (to simplify, we consider the months divided into
+	 * 3/4 weeks, each starting on day 1, 8, 15, 22, or 29 of that month).
+	 */
+	String[] temp;
+	int currentCount = 0;
+	List<String> returnList = new ArrayList<String>();
+	int[] weekStarters = {1, 8, 15, 22, 29, 32};
+	String[] monthNames = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep",
+			"Oct", "Nov", "Dec"};
+	for(String month:monthNames){
+		currentCount = 0;
+		for(int i = 0; i < weekStarters.length -1; i++){
+			currentCount = 0;
+			for(Date date: this.countTimes){
+				temp = date.toString().split(" ");
+				if ((temp[1].compareToIgnoreCase(month) == 0)&&
+					(weekStarters[i] <= Integer.parseInt(temp[2])) &&
+					(weekStarters[i+1] > Integer.parseInt(temp[2]))){
+					currentCount += 1;
+				}
+			}//endof inner loop
+			if(currentCount > 0){
+			returnList.add(String.format("Week of %s %d -- %d", month, i, currentCount));
+			}
+		}//endof middle loop
+	}//endof outermost loop
+	return returnList;
+	}
 	
 	
 
