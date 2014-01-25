@@ -8,8 +8,16 @@
 
 package ualberta.hpabst.as1;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
@@ -17,6 +25,7 @@ import android.view.View;
 public class MainActivity extends Activity {
 	
 	CounterMaster counterMaster;
+	private static final String SAVEFILE = "savefile.sav";
 	
 
     @Override
@@ -27,10 +36,7 @@ public class MainActivity extends Activity {
     
     public void onResume(){
     	super.onResume();
-    	if(counterMaster == null){
-    		counterMaster = new CounterMaster();
-            testingSetup();//Should be removed after testing.
-    	}
+    	counterMaster = loadFromFile();
     }
 
 
@@ -41,12 +47,51 @@ public class MainActivity extends Activity {
         return true;
     }
     
+    private void saveInFile(CounterMaster c){
+    	/*
+    	 * Saves the current state of a CounterMaster to a file.
+    	 */
+    	try{
+    		FileOutputStream stream = openFileOutput(SAVEFILE,Context.MODE_PRIVATE);
+    		ObjectOutputStream objOut = new ObjectOutputStream(stream);
+    		objOut.writeObject(c);
+    		objOut.close();
+    	}catch(FileNotFoundException e){
+    		e.printStackTrace();
+    	}catch(IOException e){
+    		e.printStackTrace();
+    	}
+    }
+    
+    private CounterMaster loadFromFile(){
+    	/*
+    	 * Loads the previously saved CounterMaster and deletes the save file.
+    	 */
+    	CounterMaster c = new CounterMaster();
+    	try{
+    		FileInputStream stream = openFileInput(SAVEFILE);
+    		ObjectInputStream objIn = new ObjectInputStream(stream);
+    		c = (CounterMaster) objIn.readObject();
+    		objIn.close();
+    		deleteFile(SAVEFILE);
+    	}catch (FileNotFoundException e){
+    		e.printStackTrace();
+    	}catch (IOException e){
+    		e.printStackTrace();
+    	} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	return c;
+    }
+    
     public void toCountersDisplay(View view){
     	Intent counterListIntent = new Intent(ualberta.hpabst.as1.MainActivity.this,
     										  CounterListActivity.class);
-    	counterListIntent.putExtra("counterMaster", counterMaster);
+    	testingSetup();
+    	saveInFile(counterMaster);
     	startActivity(counterListIntent);
     }
+    
     
     public void testingSetup(){
     	/*
