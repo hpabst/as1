@@ -168,12 +168,66 @@ public class Counter implements Serializable {
 			for(Date date: this.countTimes){
 				temp = date.toString().split(" ");
 				temp2 = temp[1] + " " + temp[2];
+				/*
+				 * temp2 is a string of the form "mon dd"
+				 */
 				if(temp2.compareToIgnoreCase(s) == 0){
 					currentCount += 1;
 				}
 			}//endof inner loop
 			returnList.add(String.format("%s -- %d", s, currentCount));
 		}//endof outer loop
+		return returnList;
+	}
+	
+	public List<String> getHourStats(){
+		/*
+		 * Returns a list of strings of the form: "XXX YY AA:00 -- ZZ"
+		 * where XXX is the month, YY is the day, AA is the hour of the day,
+		 * and ZZ is the number of times the counter was incremented in that hour.
+		 */
+		String[] temp = {"pointless","initialization"};
+		String[] temp2 = {"pointless","initialization"};
+		String temp3 = "pointless";
+		String amOrPm = "AM";
+		int currentCount = 0;
+		List<String> returnList = new ArrayList<String>();
+		List<String> foundDays = new ArrayList<String>();
+		for (Date date: this.countTimes){
+			temp = date.toString().split(" ");
+			temp2 = temp[3].split(":");
+			temp3 = temp[1] + " " + temp[2] + " " + temp2[0] + ":00";
+			/*
+			 * temp3 is a string of the form "mon dd hh:00:
+			 */
+			if((foundDays.contains(temp3)) == false){
+			foundDays.add(temp3);	
+			}
+		}
+		for (String s: foundDays){
+			currentCount = 0;
+			for(Date date: this.countTimes){
+				temp = date.toString().split(" ");
+				temp2 = temp[3].split(":");
+				temp3 = temp[1] + " " + temp[2] + " " + temp2[0] + ":00";
+				if(temp3.compareToIgnoreCase(s) == 0){
+					currentCount += 1;
+				}
+			}//endof inner loop
+			if((Integer.parseInt(temp2[0])) >= 12){
+				/*
+				 * This bit handles the AM PM portion, as well as rollover from 12:59 to 1:00.
+				 */
+				amOrPm = "PM";
+				if((Integer.parseInt(temp2[0])) > 12){
+				temp2[0] = String.valueOf(((Integer.parseInt(temp2[0])) - 12));
+				temp3 = temp[1] + " " + temp[2] + " " + temp2[0] + ":00";
+				}
+			}else{
+				amOrPm = "AM";
+			}
+			returnList.add(String.format("Hour of %s %s -- %d", temp3, amOrPm, currentCount));
+		}//endof outer loop.
 		return returnList;
 	}
 	
