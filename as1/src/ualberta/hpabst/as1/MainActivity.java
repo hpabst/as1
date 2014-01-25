@@ -52,6 +52,7 @@ public class MainActivity extends Activity {
     	 * Saves the current state of a CounterMaster to a file.
     	 */
     	try{
+    		deleteFile(SAVEFILE);
     		FileOutputStream stream = openFileOutput(SAVEFILE,Context.MODE_PRIVATE);
     		ObjectOutputStream objOut = new ObjectOutputStream(stream);
     		objOut.writeObject(c);
@@ -73,7 +74,6 @@ public class MainActivity extends Activity {
     		ObjectInputStream objIn = new ObjectInputStream(stream);
     		c = (CounterMaster) objIn.readObject();
     		objIn.close();
-    		deleteFile(SAVEFILE);
     	}catch (FileNotFoundException e){
     		e.printStackTrace();
     	}catch (IOException e){
@@ -98,8 +98,10 @@ public class MainActivity extends Activity {
     	 * Function used for testing the passing of objects through activites and the display
     	 * of the ListView in CounterListActivity.java.
     	 */
+    	if (counterMaster.getAllCounters().isEmpty()){
     	counterMaster.addCounter(new Counter("Pushups"));
     	counterMaster.addCounter(new Counter("Trains"));
+    	}
     }
     
 }

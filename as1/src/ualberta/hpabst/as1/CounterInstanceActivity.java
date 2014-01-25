@@ -6,8 +6,16 @@ package ualberta.hpabst.as1;
  * TODO: Everything involved with this Activity.
  */
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
@@ -18,10 +26,11 @@ import android.widget.TextView;
 
 public class CounterInstanceActivity extends Activity {
 	
-	Counter clickedCounter;
-	CounterMaster counterMaster;
-	TextView counterNameDisplay;
-	TextView counterCountDisplay;
+	private Counter clickedCounter;
+	private CounterMaster counterMaster;
+	private TextView counterNameDisplay;
+	private TextView counterCountDisplay;
+	private static final String SAVEFILE = "savefile.sav";
 	
 	public void onResume(){
 		/*
@@ -31,12 +40,14 @@ public class CounterInstanceActivity extends Activity {
 		super.onResume();
         setContentView(R.layout.counter_layout);
 		Intent i = getIntent();
-		clickedCounter = (Counter) i.getSerializableExtra("clickedCounter");
-		counterMaster = (CounterMaster) i.getSerializableExtra("counterMaster");
+		int counterIndex = (int) i.getExtras().getInt("viewPos");
+		counterMaster = loadFromFile();
+		clickedCounter = counterMaster.getAllCounters().get(counterIndex);
 		counterNameDisplay = (TextView) findViewById(R.id.textCounterName);
 		counterCountDisplay = (TextView) findViewById(R.id.textCount);
-		counterNameDisplay.setText(clickedCounter.getCounterName());
-		counterCountDisplay.setText(clickedCounter.getCount().toString());
+		counterNameDisplay.setText(clickedCounter.getCounterName());//Should be changed after testing.
+		counterCountDisplay.setText(clickedCounter.getCount().toString());//Should be changed after testing.	
+		
 	}
 	
 	public void displayStats(View view){
@@ -52,6 +63,7 @@ public class CounterInstanceActivity extends Activity {
 		 * and reset the counter back to 0. SAVE AFTER.
 		 */
 		clickedCounter.reset();
+		saveInFile(counterMaster);
 		counterCountDisplay.setText(clickedCounter.getCount().toString());
 
 	}
@@ -60,10 +72,11 @@ public class CounterInstanceActivity extends Activity {
 		/*
 		 * SAVE AFTER
 		 * This is broken atm due to passing of CounterMaster and counters by value
-		 * rather than reference.
+		 * rather than reference. Still need to add user confirmation.
 		 */
 		boolean test;
 		test = counterMaster.getAllCounters().remove(clickedCounter);
+		saveInFile(counterMaster);
 		Log.i("removeCounter",String.format("Result of removceCounter was %s.", String.valueOf(test)));
 		finish();
 	}
@@ -91,6 +104,7 @@ public class CounterInstanceActivity extends Activity {
 					value = value.substring(0,15);
 				}
 				clickedCounter.setCounterName(value);
+				saveInFile(counterMaster);
 				counterNameDisplay.setText(clickedCounter.getCounterName());
 			}
 		});
@@ -113,7 +127,45 @@ public class CounterInstanceActivity extends Activity {
 		 * SAVE AFTER.
 		 */
 		clickedCounter.increment();
+		saveInFile(counterMaster);
 		counterCountDisplay.setText(clickedCounter.getCount().toString());
 	}
+	
+    private void saveInFile(CounterMaster c){
+    	/*
+    	 * Saves the current state of a CounterMaster to a file.
+    	 */
+    	try{
+    		deleteFile(SAVEFILE);
+    		FileOutputStream stream = openFileOutput(SAVEFILE,Context.MODE_PRIVATE);
+    		ObjectOutputStream objOut = new ObjectOutputStream(stream);
+    		objOut.writeObject(c);
+    		objOut.close();
+    	}catch(FileNotFoundException e){
+    		e.printStackTrace();
+    	}catch(IOException e){
+    		e.printStackTrace();
+    	}
+    }
+    
+    private CounterMaster loadFromFile(){
+    	/*
+    	 * Loads the previously saved CounterMaster and deletes the save file.
+    	 */
+    	CounterMaster c = new CounterMaster();
+    	try{
+    		FileInputStream stream = openFileInput(SAVEFILE);
+    		ObjectInputStream objIn = new ObjectInputStream(stream);
+    		c = (CounterMaster) objIn.readObject();
+    		objIn.close();
+    	}catch (FileNotFoundException e){
+    		e.printStackTrace();
+    	}catch (IOException e){
+    		e.printStackTrace();
+    	} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	return c;
+    }
 
 }

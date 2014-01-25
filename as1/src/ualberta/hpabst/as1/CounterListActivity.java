@@ -9,8 +9,16 @@
 
 package ualberta.hpabst.as1;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,15 +34,12 @@ import android.view.View;
 
 
 public class CounterListActivity extends Activity {
-	/*
-	 * A large amount of code for this class was adapted from
-	 * www.josecgomez.com/2010/05/03/android-putting-custom-objects-in-listview/
-	 * 
-	 */
+
 	
-	ListView lstTest;
-	CounterAdapter arrayAdapter;
-	CounterMaster counterMaster;
+	private ListView lstTest;
+	private CounterAdapter arrayAdapter;
+	private CounterMaster counterMaster;
+	private static final String SAVEFILE = "savefile.sav";
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -43,19 +48,21 @@ public class CounterListActivity extends Activity {
 	
 	public void onResume(){
 		super.onResume();
+		counterMaster = loadFromFile();
 		
-		Intent i = getIntent();
-		counterMaster = (CounterMaster)i.getSerializableExtra("counterMaster");
+		/*
+		 * A large amount of code for this method was adapted from
+		 * www.josecgomez.com/2010/05/03/android-putting-custom-objects-in-listview/
+		 * 
+		 */
 		
 		//Initialize ListView
 		lstTest = (ListView) findViewById(R.id.counterListView);
 		
 		//Initialize our array adapter notice how it references the counter_list_instance_layout.xml layout
 		arrayAdapter = new CounterAdapter(this, R.layout.counter_list_instance_layout,
-											counterMaster.allCounters);
-		
+											counterMaster.allCounters);	
 		lstTest.setAdapter(arrayAdapter);
-		
 		lstTest.setOnItemClickListener(new OnItemClickListener(){
 			/*
 			 * When one of the counters is clicked, we want to go to a new activity
@@ -65,10 +72,14 @@ public class CounterListActivity extends Activity {
 			
 			@Override
 			public void onItemClick(AdapterView<?> parent, View clickView, int position, long id){
-				Counter clickedCounter = (Counter) arrayAdapter.getItem(position);
 				Intent counterInstance = new Intent(ualberta.hpabst.as1.CounterListActivity.this,
 													CounterInstanceActivity.class);
-				counterInstance.putExtra("clickedCounter", clickedCounter);
+				counterInstance.putExtra("viewPos", position);//Testing w/ this.
+				/*
+				 * We pass a copy of the clicked counter along so we can modify
+				 * the version in the counterMaster and preserve changes.
+				 */
+				saveInFile(counterMaster);
 				startActivity(counterInstance);
 			}
 		});
@@ -117,6 +128,7 @@ public class CounterListActivity extends Activity {
 					value = value.substring(0,15);
 				}
 				counterMaster.addCounter(new Counter(value));
+				saveInFile(counterMaster);
 		}
 		});
 		
@@ -137,8 +149,46 @@ public class CounterListActivity extends Activity {
 		 * in the activity.
 		 */
 		Log.i("Sort counters button:", "I have been pressed.");
+		saveInFile(counterMaster);
 		arrayAdapter.notifyDataSetChanged();
 	}
+	
+    private void saveInFile(CounterMaster c){
+    	/*
+    	 * Saves the current state of a CounterMaster to a file.
+    	 */
+    	try{
+    		deleteFile(SAVEFILE);
+    		FileOutputStream stream = openFileOutput(SAVEFILE,Context.MODE_PRIVATE);
+    		ObjectOutputStream objOut = new ObjectOutputStream(stream);
+    		objOut.writeObject(c);
+    		objOut.close();
+    	}catch(FileNotFoundException e){
+    		e.printStackTrace();
+    	}catch(IOException e){
+    		e.printStackTrace();
+    	}
+    }
+    
+    private CounterMaster loadFromFile(){
+    	/*
+    	 * Loads the previously saved CounterMaster and deletes the save file.
+    	 */
+    	CounterMaster c = new CounterMaster();
+    	try{
+    		FileInputStream stream = openFileInput(SAVEFILE);
+    		ObjectInputStream objIn = new ObjectInputStream(stream);
+    		c = (CounterMaster) objIn.readObject();
+    		objIn.close();
+    	}catch (FileNotFoundException e){
+    		e.printStackTrace();
+    	}catch (IOException e){
+    		e.printStackTrace();
+    	} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	return c;
+    }
 	
 
 }
