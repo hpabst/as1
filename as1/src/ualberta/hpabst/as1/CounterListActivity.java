@@ -15,6 +15,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Collections;
+import java.util.Comparator;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -144,11 +146,17 @@ public class CounterListActivity extends Activity {
 	
 	public void sortCounters(MenuItem item){
 		/*
-		 * Still need to implement. Should sort the counters currently in the
-		 * master list of counters according to their count, then redisplay them
-		 * in the activity.
+		 *Sorts the list of counters and calls arrayAdapter to update the ListView.
 		 */
 		Log.i("Sort counters button:", "I have been pressed.");
+		Collections.sort(counterMaster.getAllCounters(), new Comparator<Counter>(){
+			public int compare (Counter c1, Counter c2){
+				if (c1.getCount() <= c2.getCount()){
+					return 1;
+				}
+				return -1;
+			}
+		});
 		saveInFile(counterMaster);
 		arrayAdapter.notifyDataSetChanged();
 	}
