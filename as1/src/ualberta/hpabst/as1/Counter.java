@@ -137,12 +137,46 @@ public class Counter implements Serializable {
 				}
 			}//endof inner loop
 			if(currentCount > 0){
-			returnList.add(String.format("Week of %s %d -- %d", month, i, currentCount));
+			returnList.add(String.format("Week of %s %d to %d -- %d", month, weekStarters[i],
+							weekStarters[i+1] - 1, currentCount));
 			}
 		}//endof middle loop
 	}//endof outermost loop
 	return returnList;
 	}
+	
+	public List<String> getDayStats(){
+		/*
+		 * Returns a list of strings of the form: "XXX YY -- ZZ"
+		 * where XXX is the month, YY is the day, and ZZ is the number of counts
+		 * that took place on that
+		 */
+		String[] temp;
+		String temp2;
+		int currentCount = 0;
+		List<String> returnList = new ArrayList<String>();
+		List<String> foundDays = new ArrayList<String>();
+		for (Date date: this.countTimes){
+			temp = date.toString().split(" ");
+			temp2 = temp[1]+ " " + temp[2];
+			if((foundDays.contains(temp2)) == false){
+			foundDays.add(temp2);	
+			}
+		}
+		for (String s: foundDays){
+			currentCount = 0;
+			for(Date date: this.countTimes){
+				temp = date.toString().split(" ");
+				temp2 = temp[1] + " " + temp[2];
+				if(temp2.compareToIgnoreCase(s) == 0){
+					currentCount += 1;
+				}
+			}//endof inner loop
+			returnList.add(String.format("%s -- %d", s, currentCount));
+		}//endof outer loop
+		return returnList;
+	}
+	
 	
 	
 
