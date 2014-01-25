@@ -9,6 +9,8 @@ package ualberta.hpabst.as1;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @SuppressWarnings("serial")
@@ -20,10 +22,18 @@ public class CounterMaster implements Serializable {
 		allCounters = new ArrayList<Counter>();
 	}
 	
-	public void sortCounterList(){
+	public void sortAllCounters(){
 		/*
-		 * Still need to do the implementation of this.
-		 */	
+		 * Sorts the counters stored in allCounters from largest to smallest.
+		 */
+		Collections.sort(this.getAllCounters(), new Comparator<Counter>(){
+			public int compare (Counter c1, Counter c2){
+				if (c1.getCount() <= c2.getCount()){
+					return 1;
+				}
+				return -1;
+			}
+		});
 	}
 	
 	public void addCounter(Counter newCounter){

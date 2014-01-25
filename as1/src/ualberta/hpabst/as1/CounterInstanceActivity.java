@@ -55,6 +55,11 @@ public class CounterInstanceActivity extends Activity {
 		 * Still need to fill out, should push the app to displaying
 		 * statistics regarding the counter currently being viewed.
 		 */
+		Intent statsDisplay = new Intent(ualberta.hpabst.as1.CounterInstanceActivity.this,
+										CounterStatsActivity.class);
+		statsDisplay.putExtra("clickedCounter",clickedCounter);
+		saveInFile(counterMaster);
+		startActivity(statsDisplay);
 	}
 	
 	public void resetCounter(View view){

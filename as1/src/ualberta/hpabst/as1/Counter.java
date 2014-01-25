@@ -8,15 +8,15 @@ package ualberta.hpabst.as1;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
+import java.util.Date;
 import java.util.List;
 
 @SuppressWarnings("serial")
 public class Counter implements Serializable {
 	
-	public String counterName;
-	public Integer count;
-	public List<GregorianCalendar> countTimes;
+	private String counterName;
+	private Integer count;
+	private List<Date> countTimes;
 	
 	public Counter(){
 		/*
@@ -25,13 +25,13 @@ public class Counter implements Serializable {
 		 */
 		this.counterName = "Default";
 		this.count = 0;
-		this.countTimes = new ArrayList<GregorianCalendar>();
+		this.countTimes = new ArrayList<Date>();
 	}
 	
 	public Counter(String newName){
 		this.counterName = newName;
 		this.count = 0;
-		this.countTimes = new ArrayList<GregorianCalendar>();
+		this.countTimes = new ArrayList<Date>();
 	}
 	
 	
@@ -51,11 +51,11 @@ public class Counter implements Serializable {
 		this.count = count;
 	}
 
-	public List<GregorianCalendar> getCountTimes() {
+	public List<Date> getCountTimes() {
 		return countTimes;
 	}
 
-	public void setCountTimes(List<GregorianCalendar> countTimes) {
+	public void setCountTimes(List<Date> countTimes) {
 		this.countTimes = countTimes;
 	}
 	
@@ -64,7 +64,8 @@ public class Counter implements Serializable {
 		 * Increments the count, and adds the time/date it was incremented to countTimes.
 		 */
 		this.count += 1;
-		countTimes.add(new GregorianCalendar());
+		Date g = new Date(System.currentTimeMillis());
+		countTimes.add(g);
 	}
 	
 	public void reset(){
@@ -83,5 +84,35 @@ public class Counter implements Serializable {
 		 */
 		this.counterName = newName;
 	}
+	
+	public List<String> getMonthStats(){
+		/*
+		 * Returns an list of strings of the form: "Month of XXX -- Y"
+		 * where XXX is a month that has at least one  count taken by the
+		 * counter and Y is the number of counts taken in that month.
+		 */
+		int currentCount = 0;
+		String[] temp;
+		List<String> returnList = new ArrayList<String>();
+		String[] monthNames = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep",
+								"Oct", "Nov", "Dec"};
+		for (String month: monthNames){
+			currentCount = 0;
+			for(Date date: this.countTimes){
+				temp = date.toString().split(" ");
+				if ((temp[1].compareToIgnoreCase(month) == 0)){
+						currentCount += 1;		
+				}			
+			}//endof inner loop
+			if(currentCount > 0){
+				returnList.add(String.format("Month of %s -- %d", month, currentCount));
+			}
+		}//endof outer loop
+		return returnList;
+	}
+	
+	
+	
+	
 
 }

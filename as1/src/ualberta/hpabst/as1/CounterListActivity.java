@@ -15,8 +15,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.Collections;
-import java.util.Comparator;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -28,11 +26,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.view.View;
 
 
 public class CounterListActivity extends Activity {
@@ -63,7 +61,7 @@ public class CounterListActivity extends Activity {
 		
 		//Initialize our array adapter notice how it references the counter_list_instance_layout.xml layout
 		arrayAdapter = new CounterAdapter(this, R.layout.counter_list_instance_layout,
-											counterMaster.allCounters);	
+											counterMaster.getAllCounters());	
 		lstTest.setAdapter(arrayAdapter);
 		lstTest.setOnItemClickListener(new OnItemClickListener(){
 			/*
@@ -148,15 +146,9 @@ public class CounterListActivity extends Activity {
 		/*
 		 *Sorts the list of counters and calls arrayAdapter to update the ListView.
 		 */
+		counterMaster.sortAllCounters();
 		Log.i("Sort counters button:", "I have been pressed.");
-		Collections.sort(counterMaster.getAllCounters(), new Comparator<Counter>(){
-			public int compare (Counter c1, Counter c2){
-				if (c1.getCount() <= c2.getCount()){
-					return 1;
-				}
-				return -1;
-			}
-		});
+
 		saveInFile(counterMaster);
 		arrayAdapter.notifyDataSetChanged();
 	}

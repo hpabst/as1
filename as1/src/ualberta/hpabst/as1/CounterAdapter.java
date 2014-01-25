@@ -53,8 +53,8 @@ public class CounterAdapter extends ArrayAdapter<Counter> {
 		TextView counterCount = (TextView) counterView.findViewById(R.id.counterInstCount);
 		
 		//Assign the appropriate data from the counter object above.
-		counterName.setText(c.counterName);
-		counterCount.setText(String.valueOf(c.count));
+		counterName.setText(c.getCounterName());
+		counterCount.setText(String.valueOf(c.getCount()));
 		
 		return counterView;
 		

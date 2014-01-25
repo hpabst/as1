@@ -33,6 +33,12 @@
             android:label="Counter Display">
             
         </activity>
+        
+        <activity
+            android:name="ualberta.hpabst.as1.CounterStatsActivity"
+            android:label="Counter Stats Display">
+            
+        </activity>
     </application>
 
 </manifest>
