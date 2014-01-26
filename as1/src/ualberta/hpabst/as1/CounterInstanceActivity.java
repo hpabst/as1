@@ -3,7 +3,7 @@ package ualberta.hpabst.as1;
  * Activity for the display of data for an individual counter. From here the user should be able to 
  * rename the counter, reset it back to 0, increment the count, and view statistics of the counter.
  * Associated XML layout file is counter_layout.xml.
- * TODO: Everything involved with this Activity.
+ * 
  */
 
 import java.io.FileInputStream;
@@ -65,6 +65,8 @@ public class CounterInstanceActivity extends Activity {
 	public void resetCounter(View view){
 		/*
 		 * Resets the counter being viewed back to 0.
+		 * Code for this method was modified from
+		 * www.androidsnippets.com/prompt-user-input-with-an-alertdialog
 		 */
 		AlertDialog.Builder resetAlert = new AlertDialog.Builder(this);
 		resetAlert.setTitle("Counter Reset");
@@ -85,6 +87,8 @@ public class CounterInstanceActivity extends Activity {
 	public void removeCounter(View view){
 		/*
 		 * Removes the counter being view and takes the user back to the CounterListActivity.
+		 * Code for this method was modified from
+		 * www.androidsnippets.com/prompt-user-input-with-an-alertdialog
 		 */
 		AlertDialog.Builder removalAlert = new AlertDialog.Builder(this);
 		removalAlert.setTitle("Counter Removal");
@@ -106,12 +110,9 @@ public class CounterInstanceActivity extends Activity {
 	
 	public void renameCounter(View view){
 		/*
-		 * Still need to fill out, should prompt the user to rename
-		 * the counter currently being displayed then update the textview.
-		 * SAVE AFTER.
-		 */
-		/*
-		 * The code for this function was largely adapted from 
+		 * Prompts the user to enter a new name for the counter currently being viewed.
+		 * 
+		 * The code for this method was largely adapted from 
 		 * www.androidsnippets.com/prompt-user-input-with-an-alertdialog
 		 */
 		Log.i("renameCounter","I have been pressed.");
@@ -145,9 +146,7 @@ public class CounterInstanceActivity extends Activity {
 	
 	public void incrementCounter(View view){
 		/*
-		 * Still need to fill out, should increment the counter and redisplay
-		 * the count.
-		 * SAVE AFTER.
+		 * Increments the counter and causes a redisplay of the new count.
 		 */
 		clickedCounter.increment();
 		saveInFile(counterMaster);

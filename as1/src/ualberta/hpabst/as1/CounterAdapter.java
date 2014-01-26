@@ -22,9 +22,9 @@ public class CounterAdapter extends ArrayAdapter<Counter> {
 	 * www.josecgomez.com/2010/05/03/android-putting-custom-objects-in-listview
 	 * 
 	 */
-	int resource;
-	String response;
-	Context context;
+	public int resource;
+	public String response;
+	public Context context;
 	
 	public CounterAdapter(Context context, int resource, List<Counter> items){
 		super(context,resource, items);

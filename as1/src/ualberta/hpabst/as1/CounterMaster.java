@@ -2,7 +2,6 @@
  * This class acts as the "master" of the counters within the app.
  * It holds a list of the counters which are incremented, and allows
  * sorting of said counters by count amount.
- * TODO:Add sorting of the list of counters.
  */
 
 package ualberta.hpabst.as1;
@@ -40,7 +39,7 @@ public class CounterMaster implements Serializable {
 		allCounters.add(newCounter);
 	}
 	
-	public void clearCounterList(){
+	public void clearAllCounters(){
 		allCounters.clear();
 	}
 	
@@ -50,6 +49,4 @@ public class CounterMaster implements Serializable {
 	
 	
 	
-	
-
 }

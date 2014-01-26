@@ -43,8 +43,8 @@ public class Counter implements Serializable {
 		return counterName;
 	}
 
-	public void setCounterName(String counterName) {
-		this.counterName = counterName;
+	public void setCounterName(String newName) {
+		this.counterName = newName;
 	}
 
 	public Integer getCount() {
@@ -80,32 +80,6 @@ public class Counter implements Serializable {
 		this.count = 0;
 		countTimes.clear();
 	}
-	
-//	public List<String> getMonthStats(){
-//		/*
-//		 * Returns an list of strings of the form: "Month of XXX -- Y"
-//		 * where XXX is a month that has at least one  count taken by the
-//		 * counter and Y is the number of counts taken in that month.
-//		 */
-//		int currentCount = 0;
-//		String[] temp;
-//		List<String> returnList = new ArrayList<String>();
-//		String[] monthNames = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep",
-//								"Oct", "Nov", "Dec"};
-//		for (String month: monthNames){
-//			currentCount = 0;
-//			for(Date date: this.countTimes){
-//				temp = date.toString().split(" ");
-//				if ((temp[1].compareToIgnoreCase(month) == 0)){
-//						currentCount += 1;		
-//				}			
-//			}//endof inner loop
-//			if(currentCount > 0){
-//				returnList.add(String.format("Month of %s -- %d", month, currentCount));
-//			}
-//		}//endof outer loop
-//		return returnList;
-//	}
 	
 	public List<String> getMonthStats(){
 		/*
@@ -257,7 +231,4 @@ public class Counter implements Serializable {
 		return returnList;
 	}
 	
-	
-	
-
 }

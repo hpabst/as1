@@ -3,8 +3,6 @@
  * individual counters. Should as well have a button that will sort the counters based on their count and one
  * that allows the generation of a new counter.
  * Corresponding XML layout file is counter_list_layout.xml.
- * TODO: Saving of the masterCounter when a new Counter is added or removed. Removing of counters.
- * 		Moving from this activity into viewing details of a specific counter.
  */
 
 package ualberta.hpabst.as1;
@@ -74,7 +72,7 @@ public class CounterListActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View clickView, int position, long id){
 				Intent counterInstance = new Intent(ualberta.hpabst.as1.CounterListActivity.this,
 													CounterInstanceActivity.class);
-				counterInstance.putExtra("viewPos", position);//Testing w/ this.
+				counterInstance.putExtra("viewPos", position);
 				/*
 				 * We pass a copy of the clicked counter along so we can modify
 				 * the version in the counterMaster and preserve changes.

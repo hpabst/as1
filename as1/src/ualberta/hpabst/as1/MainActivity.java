@@ -24,7 +24,7 @@ import android.view.View;
 
 public class MainActivity extends Activity {
 	
-	CounterMaster counterMaster;
+	private CounterMaster counterMaster;
 	private static final String SAVEFILE = "savefile.sav";
 	private long msExtra;
 	
@@ -35,6 +35,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
     }
     
+    @Override
     public void onResume(){
     	super.onResume();
     	counterMaster = loadFromFile();
@@ -79,6 +80,10 @@ public class MainActivity extends Activity {
     }
     
     public void toCountersDisplay(View view){
+    	/*
+    	 * Moves the flow of the app into displaying the current list of
+    	 * counters in CounterListActivity.
+    	 */
     	Intent counterListIntent = new Intent(ualberta.hpabst.as1.MainActivity.this,
     										  CounterListActivity.class);
     	saveInFile(counterMaster);
@@ -86,27 +91,27 @@ public class MainActivity extends Activity {
     }
     
     
-    public void testingSetup(){
+    private void testingSetup(){
     	/*
-    	 * Function used for testing the passing of objects through activites and the display
+    	 * Method used for testing the passing of objects through activites and the display
     	 * of the ListView in CounterListActivity.java.
     	 */
     	Counter tmp;
     	if (counterMaster.getAllCounters().isEmpty()){
     		msExtra = 1320000;
-    	counterMaster.addCounter(new Counter("Pushups"));
-    	counterMaster.addCounter(new Counter("Trains"));
-    	List<Date> dates = new ArrayList<Date>();
-    	Date currentDate = new Date();
-    	for (int j = 0; j <= 100; j++){
-    		dates.add(new Date(currentDate.getTime() + (j * msExtra)));
-    	}
-    	for (int i = 0; i <= 100; i++){
-    		tmp = new Counter("Cnt" + String.valueOf(i));
-    		tmp.setCountTimes(dates);
-    		tmp.setCount(100);
-    		counterMaster.addCounter(tmp);
-    	}
+    		counterMaster.addCounter(new Counter("Pushups"));
+    		counterMaster.addCounter(new Counter("Trains"));
+    		List<Date> dates = new ArrayList<Date>();
+    		Date currentDate = new Date();
+    		for (int j = 0; j <= 100; j++){
+    			dates.add(new Date(currentDate.getTime() + (j * msExtra)));
+    		}
+    		for (int i = 0; i <= 100; i++){
+    			tmp = new Counter("Cnt" + String.valueOf(i));
+    			tmp.setCountTimes(dates);
+    			tmp.setCount(100);
+    			counterMaster.addCounter(tmp);
+    		}
     	}
     }
     
