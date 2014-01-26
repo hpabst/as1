@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:textSize="24sp"
         android:text="@string/defaultName"
         android:ellipsize="middle"
         android:singleLine="true"
@@ -19,11 +20,12 @@
         android:id="@+id/counterInstCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/counterInstName"
-        android:layout_below="@+id/counterInstName"
+        android:layout_alignBaseline="@+id/counterInstName"
+        android:layout_alignBottom="@+id/counterInstName"
+        android:layout_marginLeft="26dp"
+        android:layout_toRightOf="@+id/counterInstName"
+        android:textSize="18sp"
         android:text="@string/defaultCount"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

@@ -45,8 +45,8 @@ public class CounterInstanceActivity extends Activity {
 		clickedCounter = counterMaster.getAllCounters().get(counterIndex);
 		counterNameDisplay = (TextView) findViewById(R.id.textCounterName);
 		counterCountDisplay = (TextView) findViewById(R.id.textCount);
-		counterNameDisplay.setText(clickedCounter.getCounterName());//Should be changed after testing.
-		counterCountDisplay.setText(clickedCounter.getCount().toString());//Should be changed after testing.	
+		counterNameDisplay.setText(clickedCounter.getCounterName());
+		counterCountDisplay.setText(clickedCounter.getCount().toString());	
 		
 	}
 	
@@ -64,26 +64,44 @@ public class CounterInstanceActivity extends Activity {
 	
 	public void resetCounter(View view){
 		/*
-		 * Still need to fill out, should prompt the user for confirmation
-		 * and reset the counter back to 0. SAVE AFTER.
+		 * Resets the counter being viewed back to 0.
 		 */
-		clickedCounter.reset();
-		saveInFile(counterMaster);
-		counterCountDisplay.setText(clickedCounter.getCount().toString());
-
+		AlertDialog.Builder resetAlert = new AlertDialog.Builder(this);
+		resetAlert.setTitle("Counter Reset");
+		resetAlert.setMessage("Are you sure? This will reset the counter back to 0.");
+		resetAlert.setPositiveButton("I'm Sure", new DialogInterface.OnClickListener(){
+			public void onClick(DialogInterface dialog, int button){
+				clickedCounter.reset();
+				saveInFile(counterMaster);
+				counterCountDisplay.setText(clickedCounter.getCount().toString());
+			}
+		});
+		resetAlert.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+			public void onClick(DialogInterface dialog, int button){}
+		});
+		resetAlert.show();
 	}
 	
 	public void removeCounter(View view){
 		/*
-		 * SAVE AFTER
-		 * This is broken atm due to passing of CounterMaster and counters by value
-		 * rather than reference. Still need to add user confirmation.
+		 * Removes the counter being view and takes the user back to the CounterListActivity.
 		 */
-		boolean test;
-		test = counterMaster.getAllCounters().remove(clickedCounter);
-		saveInFile(counterMaster);
-		Log.i("removeCounter",String.format("Result of removceCounter was %s.", String.valueOf(test)));
-		finish();
+		AlertDialog.Builder removalAlert = new AlertDialog.Builder(this);
+		removalAlert.setTitle("Counter Removal");
+		removalAlert.setMessage("Are you sure? A counter cannot be recovered once removed.");
+		removalAlert.setPositiveButton("I'm Sure", new DialogInterface.OnClickListener(){
+			public void onClick(DialogInterface dialog, int button){
+				boolean test;
+				test = counterMaster.getAllCounters().remove(clickedCounter);
+				saveInFile(counterMaster);
+				Log.i("removeCounter",String.format("Result of removceCounter was %s.", String.valueOf(test)));
+				finish();
+			}
+		});
+		removalAlert.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+			public void onClick(DialogInterface dialog, int button){}
+		});
+		removalAlert.show();
 	}
 	
 	public void renameCounter(View view){

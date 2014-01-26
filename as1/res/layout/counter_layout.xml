@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-
-    <Button
-        android:id="@+id/buttonReset"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/buttonReset"
-        android:onClick="resetCounter" />
 
     <Button
         android:id="@+id/buttonRename"
@@ -18,56 +10,67 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="@string/buttonRename"
-        android:onClick="renameCounter" />
+        android:onClick="renameCounter"
+        android:text="@string/buttonRename" />
 
     <Button
-        android:id="@+id/buttonStats"
+        android:id="@+id/buttonReset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:text="@string/buttonStats"
-        android:onClick="displayStats" />
-
-    <Button
-        android:id="@+id/buttonPlusOne"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonStats"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="83dp"
-        android:text="@string/buttonPlusOne"
-        android:onClick="incrementCounter" />
-
-    <TextView
-        android:id="@+id/textCounterName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonPlusOne"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="93dp"
-        android:text="@string/defaultName"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/textCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textCounterName"
-        android:layout_alignLeft="@+id/textCounterName"
-        android:layout_marginTop="42dp"
-        android:text="@string/defaultCount"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_alignParentTop="true"
+        android:onClick="resetCounter"
+        android:text="@string/buttonReset" />
 
     <Button
         android:id="@+id/buttonRemove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/textCounterName"
-        android:text="@string/buttonRemove"
-        android:onClick="removeCounter" />
+        android:layout_toLeftOf="@+id/buttonRename"
+        android:layout_toRightOf="@+id/buttonReset"
+        android:onClick="removeCounter"
+        android:text="@string/buttonRemove" />
+
+    <Button
+        android:id="@+id/buttonStats"
+        android:layout_width="317dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="displayStats"
+        android:text="@string/buttonStats" />
+
+    <Button
+        android:id="@+id/buttonPlusOne"
+        android:layout_width="250dp"
+        android:layout_height="150dp"
+        android:layout_above="@+id/buttonStats"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="22dp"
+        android:onClick="incrementCounter"
+        android:text="@string/buttonPlusOne" />
+
+    <TextView
+        android:id="@+id/textCounterName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonRename"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="33dp"
+        android:text="@string/defaultName"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/textCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textCounterName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
+        android:text="@string/defaultCount"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="30sp" />
 
 </RelativeLayout>
