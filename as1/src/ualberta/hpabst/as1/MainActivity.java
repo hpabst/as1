@@ -1,8 +1,6 @@
 /*
- * This should act as the main menu for the counter app. Basically be a title screen with a button
- * to go see the list of counters.
- * TODO: Add the function to make the button transfer to the button display activity. Maybe sparkle things
- * up a bit if I have time. Add functionality for reloading the CounterMaster when the app is reopened.
+ * This is the activity first launched when the  app is started. It displays the
+ * opening title and a button to go look at the list of counters.
  */
 
 
@@ -14,6 +12,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -26,6 +27,7 @@ public class MainActivity extends Activity {
 	
 	CounterMaster counterMaster;
 	private static final String SAVEFILE = "savefile.sav";
+	private long msExtra;
 	
 
     @Override
@@ -87,7 +89,6 @@ public class MainActivity extends Activity {
     public void toCountersDisplay(View view){
     	Intent counterListIntent = new Intent(ualberta.hpabst.as1.MainActivity.this,
     										  CounterListActivity.class);
-    	testingSetup();
     	saveInFile(counterMaster);
     	startActivity(counterListIntent);
     }
@@ -98,9 +99,22 @@ public class MainActivity extends Activity {
     	 * Function used for testing the passing of objects through activites and the display
     	 * of the ListView in CounterListActivity.java.
     	 */
+    	Counter tmp;
     	if (counterMaster.getAllCounters().isEmpty()){
+    		msExtra = 1320000;
     	counterMaster.addCounter(new Counter("Pushups"));
     	counterMaster.addCounter(new Counter("Trains"));
+    	List<Date> dates = new ArrayList<Date>();
+    	Date currentDate = new Date();
+    	for (int j = 0; j <= 100; j++){
+    		dates.add(new Date(currentDate.getTime() + (j * msExtra)));
+    	}
+    	for (int i = 0; i <= 100; i++){
+    		tmp = new Counter("Cnt" + String.valueOf(i));
+    		tmp.setCountTimes(dates);
+    		tmp.setCount(100);
+    		counterMaster.addCounter(tmp);
+    	}
     	}
     }
     

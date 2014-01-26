@@ -1,7 +1,9 @@
 /*
- * This class acts as an individual counter for the app. Contains the name of the counter,
+ * This class acts as an individual counter for the app and supports
+ * the logic for displaying stats re: the frequency of 
+ * incrementing the counter. Contains the name of the counter,
  * its current count, and the date/times at which a count was added.
- * TODO: Add support for the calculation and output of statistics.
+ * 
  */
 
 package ualberta.hpabst.as1;
@@ -29,11 +31,13 @@ public class Counter implements Serializable {
 	}
 	
 	public Counter(String newName){
+		/*
+		 * Basic constructor for when a string is passed when a new object is created.
+		 */
 		this.counterName = newName;
 		this.count = 0;
 		this.countTimes = new ArrayList<Date>();
 	}
-	
 	
 	public String getCounterName() {
 		return counterName;
@@ -77,35 +81,58 @@ public class Counter implements Serializable {
 		countTimes.clear();
 	}
 	
-	@Deprecated
-	public void rename(String newName){
-		/*
-		 * Deprecated, rendered redundant by default setCounterName method.
-		 */
-		this.counterName = newName;
-	}
+//	public List<String> getMonthStats(){
+//		/*
+//		 * Returns an list of strings of the form: "Month of XXX -- Y"
+//		 * where XXX is a month that has at least one  count taken by the
+//		 * counter and Y is the number of counts taken in that month.
+//		 */
+//		int currentCount = 0;
+//		String[] temp;
+//		List<String> returnList = new ArrayList<String>();
+//		String[] monthNames = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep",
+//								"Oct", "Nov", "Dec"};
+//		for (String month: monthNames){
+//			currentCount = 0;
+//			for(Date date: this.countTimes){
+//				temp = date.toString().split(" ");
+//				if ((temp[1].compareToIgnoreCase(month) == 0)){
+//						currentCount += 1;		
+//				}			
+//			}//endof inner loop
+//			if(currentCount > 0){
+//				returnList.add(String.format("Month of %s -- %d", month, currentCount));
+//			}
+//		}//endof outer loop
+//		return returnList;
+//	}
 	
 	public List<String> getMonthStats(){
 		/*
-		 * Returns an list of strings of the form: "Month of XXX -- Y"
-		 * where XXX is a month that has at least one  count taken by the
-		 * counter and Y is the number of counts taken in that month.
+		 * Returns a list of strings of the form: "Month of XXX -- YY"
+		 * where XXX is the month and YY is the number of times the counter
+		 * was incremented in that month.
 		 */
-		int currentCount = 0;
 		String[] temp;
+		int currentCount = 0;
 		List<String> returnList = new ArrayList<String>();
-		String[] monthNames = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep",
-								"Oct", "Nov", "Dec"};
-		for (String month: monthNames){
+		List<String> foundMonths = new ArrayList<String>();
+		for (Date date: this.countTimes){
+			temp = date.toString().split(" ");
+			if((foundMonths.contains(temp[1])) == false){
+				foundMonths.add(temp[1]);
+			}
+		}
+		for(String s: foundMonths){
 			currentCount = 0;
-			for(Date date: this.countTimes){
+			for (Date date: this.countTimes){
 				temp = date.toString().split(" ");
-				if ((temp[1].compareToIgnoreCase(month) == 0)){
-						currentCount += 1;		
-				}			
+				if(temp[1].compareToIgnoreCase(s) == 0){
+					currentCount += 1;
+				}
 			}//endof inner loop
 			if(currentCount > 0){
-				returnList.add(String.format("Month of %s -- %d", month, currentCount));
+				returnList.add(String.format("Month of %s -- %d", s, currentCount));
 			}
 		}//endof outer loop
 		return returnList;
@@ -175,14 +202,14 @@ public class Counter implements Serializable {
 					currentCount += 1;
 				}
 			}//endof inner loop
-			returnList.add(String.format("%s -- %d", s, currentCount));
+			returnList.add(String.format("Day of %s -- %d", s, currentCount));
 		}//endof outer loop
 		return returnList;
 	}
 	
 	public List<String> getHourStats(){
 		/*
-		 * Returns a list of strings of the form: "XXX YY AA:00 -- ZZ"
+		 * Returns a list of strings of the form: "Hour of XXX YY AA:00 AM/PM -- ZZ"
 		 * where XXX is the month, YY is the day, AA is the hour of the day,
 		 * and ZZ is the number of times the counter was incremented in that hour.
 		 */
@@ -214,19 +241,18 @@ public class Counter implements Serializable {
 					currentCount += 1;
 				}
 			}//endof inner loop
-			if((Integer.parseInt(temp2[0])) >= 12){
-				/*
-				 * This bit handles the AM PM portion, as well as rollover from 12:59 to 1:00.
-				 */
+			if((Integer.parseInt(s.substring(7,9))) >= 12){
 				amOrPm = "PM";
-				if((Integer.parseInt(temp2[0])) > 12){
-				temp2[0] = String.valueOf(((Integer.parseInt(temp2[0])) - 12));
-				temp3 = temp[1] + " " + temp[2] + " " + temp2[0] + ":00";
-				}
 			}else{
 				amOrPm = "AM";
 			}
-			returnList.add(String.format("Hour of %s %s -- %d", temp3, amOrPm, currentCount));
+			temp3 = s.substring(7,9);
+			if((Integer.parseInt(temp3)) >= 13 ||
+			   (Integer.parseInt(temp3)) == 0){
+				temp3 = String.valueOf((Integer.parseInt(temp3)) - 12);
+			}
+			temp3 = s.substring(0,7) + temp3;
+			returnList.add(String.format("Hour of %s:00 %s -- %d", temp3, amOrPm, currentCount));
 		}//endof outer loop.
 		return returnList;
 	}
