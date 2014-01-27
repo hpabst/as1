@@ -110,7 +110,7 @@ public class CounterListActivity extends Activity {
 		 * Prompts the user for the entry of the name of the new counter.
 		 *
 		 *
-		 * This segment of code was taken from
+		 * This segment of code was adapted from
 		 * www.androidsnippets.com/prompt-user-input-with-an-alertdialog
 		 */
 		final AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -127,6 +127,7 @@ public class CounterListActivity extends Activity {
 				}
 				counterMaster.addCounter(new Counter(value));
 				saveInFile(counterMaster);
+				arrayAdapter.notifyDataSetChanged();
 		}
 		});
 		
